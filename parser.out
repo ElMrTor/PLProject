@@ -1,0 +1,256 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    DEFINE
+    DIVIDE
+    EQCOMPARE
+    EQUALS
+    GREATERTHAN
+    HELP
+    LBRACKET
+    LESSTHAN
+    LPARENT
+    MINUS
+    MOD
+    MULTIPLY
+    NOTEQ
+    RBRACKET
+    RPARENT
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> quit
+Rule 2     statement -> words
+Rule 3     statement -> sum
+Rule 4     statement -> start_server
+Rule 5     statement -> connect
+Rule 6     connect -> CONNECT IP NUMBER
+Rule 7     start_server -> START IP NUMBER
+Rule 8     sum -> NUMBER PLUS NUMBER
+Rule 9     quit -> QUIT RESERV
+Rule 10    words -> ID
+Rule 11    words -> words
+Rule 12    words -> words ID
+Rule 13    send -> SEND words
+
+Terminals, with rules where they appear
+
+COMMENT              : 
+CONNECT              : 6
+DEFINE               : 
+DIVIDE               : 
+EQCOMPARE            : 
+EQUALS               : 
+GREATERTHAN          : 
+HELP                 : 
+ID                   : 10 12
+IP                   : 6 7
+LBRACKET             : 
+LESSTHAN             : 
+LPARENT              : 
+MINUS                : 
+MOD                  : 
+MULTIPLY             : 
+NOTEQ                : 
+NUMBER               : 6 7 8 8
+PLUS                 : 8
+QUIT                 : 9
+RBRACKET             : 
+RESERV               : 9
+RPARENT              : 
+SEND                 : 13
+START                : 7
+error                : 
+
+Nonterminals, with rules where they appear
+
+connect              : 5
+quit                 : 1
+send                 : 
+start_server         : 4
+statement            : 0
+sum                  : 3
+words                : 2 11 12 13
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . quit
+    (2) statement -> . words
+    (3) statement -> . sum
+    (4) statement -> . start_server
+    (5) statement -> . connect
+    (9) quit -> . QUIT RESERV
+    (10) words -> . ID
+    (11) words -> . words
+    (12) words -> . words ID
+    (8) sum -> . NUMBER PLUS NUMBER
+    (7) start_server -> . START IP NUMBER
+    (6) connect -> . CONNECT IP NUMBER
+
+    QUIT            shift and go to state 7
+    ID              shift and go to state 8
+    NUMBER          shift and go to state 9
+    START           shift and go to state 10
+    CONNECT         shift and go to state 11
+
+    statement                      shift and go to state 1
+    quit                           shift and go to state 2
+    words                          shift and go to state 3
+    sum                            shift and go to state 4
+    start_server                   shift and go to state 5
+    connect                        shift and go to state 6
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> quit .
+
+    $end            reduce using rule 1 (statement -> quit .)
+
+
+state 3
+
+    (2) statement -> words .
+    (11) words -> words .
+    (12) words -> words . ID
+
+  ! reduce/reduce conflict for $end resolved using rule 2 (statement -> words .)
+  ! shift/reduce conflict for ID resolved as shift
+    $end            reduce using rule 2 (statement -> words .)
+    ID              shift and go to state 12
+
+  ! ID              [ reduce using rule 11 (words -> words .) ]
+  ! $end            [ reduce using rule 11 (words -> words .) ]
+
+
+state 4
+
+    (3) statement -> sum .
+
+    $end            reduce using rule 3 (statement -> sum .)
+
+
+state 5
+
+    (4) statement -> start_server .
+
+    $end            reduce using rule 4 (statement -> start_server .)
+
+
+state 6
+
+    (5) statement -> connect .
+
+    $end            reduce using rule 5 (statement -> connect .)
+
+
+state 7
+
+    (9) quit -> QUIT . RESERV
+
+    RESERV          shift and go to state 13
+
+
+state 8
+
+    (10) words -> ID .
+
+    ID              reduce using rule 10 (words -> ID .)
+    $end            reduce using rule 10 (words -> ID .)
+
+
+state 9
+
+    (8) sum -> NUMBER . PLUS NUMBER
+
+    PLUS            shift and go to state 14
+
+
+state 10
+
+    (7) start_server -> START . IP NUMBER
+
+    IP              shift and go to state 15
+
+
+state 11
+
+    (6) connect -> CONNECT . IP NUMBER
+
+    IP              shift and go to state 16
+
+
+state 12
+
+    (12) words -> words ID .
+
+    ID              reduce using rule 12 (words -> words ID .)
+    $end            reduce using rule 12 (words -> words ID .)
+
+
+state 13
+
+    (9) quit -> QUIT RESERV .
+
+    $end            reduce using rule 9 (quit -> QUIT RESERV .)
+
+
+state 14
+
+    (8) sum -> NUMBER PLUS . NUMBER
+
+    NUMBER          shift and go to state 17
+
+
+state 15
+
+    (7) start_server -> START IP . NUMBER
+
+    NUMBER          shift and go to state 18
+
+
+state 16
+
+    (6) connect -> CONNECT IP . NUMBER
+
+    NUMBER          shift and go to state 19
+
+
+state 17
+
+    (8) sum -> NUMBER PLUS NUMBER .
+
+    $end            reduce using rule 8 (sum -> NUMBER PLUS NUMBER .)
+
+
+state 18
+
+    (7) start_server -> START IP NUMBER .
+
+    $end            reduce using rule 7 (start_server -> START IP NUMBER .)
+
+
+state 19
+
+    (6) connect -> CONNECT IP NUMBER .
+
+    $end            reduce using rule 6 (connect -> CONNECT IP NUMBER .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 3 resolved as shift
+WARNING: reduce/reduce conflict in state 3 resolved using rule (statement -> words)
+WARNING: rejected rule (words -> words) in state 3
+WARNING: Rule (words -> words) is never reduced
